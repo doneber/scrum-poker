@@ -1,0 +1,20 @@
+{
+  "rooms": [
+    {
+      "id": 1,
+      "name": "Name room 1",
+      "stories": [
+        { "id": 1, "title": "Title 1", "description": "Description 1", "roomsid": 1 },
+        { "id": 2, "title": "Title 2", "description": "Description 2", "roomsid": 1 }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Name room 2",
+      "stories": [
+        { "id": 3, "title": "Title 3", "description": "Description 3", "roomsid": 2 },
+        { "id": 4, "title": "Title 4", "description": "Description 4", "roomsid": 2 }
+      ]
+    }
+  ]
+}
