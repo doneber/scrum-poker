@@ -1,0 +1,200 @@
+swagger: "2.0"
+info:
+  description: "This is the endpoints in the ScrumPoker"
+  version: "1.0.0"
+  title: "My Scrum Poker"
+host: "localhost:3000"
+basePath: "/v1"
+tags:
+- name: "story"
+  description: "Describe the activity to do"
+- name: "room"
+  description: "Is the place to save the stories & users"
+- name: "user"
+  description: "Operations about user"
+schemes:
+- "https"
+- "http"
+paths:
+  /{idroom}/{idstory}:
+    get:
+      tags:
+      - "story"
+      summary: "Returns story"
+      description: "Returns story detail"
+      operationId: "getStory"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid story supplied"
+        "404":
+          description: "Story not found"
+  /room:
+    get:
+      tags:
+      - "room"
+      summary: "Returns rooms"
+      description: "Returns all rooms in the app"
+      operationId: "getRooms"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            additionalProperties:
+              type: "integer"
+              format: "int32"
+      security:
+      - api_key: []
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "Create user"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        default:
+          description: "successful operation"
+  /user/{username}:
+    get:
+      tags:
+      - "user"
+      summary: "Get user by user name"
+      description: ""
+      operationId: "getUserByName"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be fetched. Use user1 for testing. "
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+    put:
+      tags:
+      - "user"
+      summary: "Updated user"
+      description: "This can only be done by the logged in user."
+      operationId: "updateUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "name that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "400":
+          description: "Invalid user supplied"
+        "404":
+          description: "User not found"
+    delete:
+      tags:
+      - "user"
+      summary: "Delete user"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+securityDefinitions:
+  storyroom_auth:
+    type: "oauth2"
+    authorizationUrl: "http://storyroom.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:storys: "modify storys in your account"
+      read:storys: "read your storys"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Story:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      storyNumber:
+        type: "integer"
+      title:
+        type: "string"
+      Description:
+        type: "string"
+    xml:
+      name: "Story"
+  Room:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+    xml:
+      name: "Room"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      username:
+        type: "string"
+    xml:
+      name: "User"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
