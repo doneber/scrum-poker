@@ -1,5 +1,5 @@
-import express from 'express'
-import roomsRouter from './routes/rooms'
+const express = require('express')
+const roomsRouter = require('./routes/rooms')
 const app = express()
 
 // Middlewares:
@@ -10,4 +10,4 @@ app.use(express.json())
 app.get('/', (req, res) => res.send('The server is running OK'))
 app.use('/rooms', roomsRouter);
 
-export default app
+module.exports = app;
