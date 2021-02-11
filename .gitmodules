@@ -1,0 +1,6 @@
+[submodule "scrumpoker-backend"]
+	path = scrumpoker-backend
+	url = https://github.com/doneber/scrumpoker-backend.git
+[submodule "scrumpoker-frontend"]
+	path = scrumpoker-frontend
+	url = https://github.com/doneber/scrumpoker-frontend.git
